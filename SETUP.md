@@ -24,29 +24,38 @@ Claude Code or Codex can read and execute these steps automatically.
 ssh root@<SERVER_IP>
 ```
 
-## Step 3: Install Node.js 22+
+## Step 3: Install OpenClaw
 
-OpenClaw requires Node ≥22.
+Use the official install script (handles Node.js dependency automatically):
 
 ```bash
-# Update system
+# Update system first
 apt update && apt upgrade -y
 
-# Install Node.js 22
-curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-apt install -y nodejs
-
-# Verify version
-node --version  # Should be v22.x.x
+# Install OpenClaw (official method from docs.openclaw.ai)
+curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
-## Step 4: Install OpenClaw
+This script:
+- Installs Node.js 22+ if needed
+- Installs OpenClaw globally
+- Sets up PATH
 
+**Alternative (manual):** If you prefer manual installation:
 ```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt install -y nodejs
 npm install -g openclaw@latest
 ```
 
-## Step 5: Run Onboarding Wizard
+## Step 4: Verify Installation
+
+```bash
+openclaw --version
+# Should show: 🦞 OpenClaw 2026.x.x
+```
+
+## Step 5: Run Onboarding Wizard (from official docs)
 
 ```bash
 openclaw onboard --install-daemon
@@ -80,7 +89,10 @@ During the wizard, when you enable WhatsApp:
 ## Step 8: Verify Setup
 
 ```bash
-# Check health
+# Gateway status (from official docs)
+openclaw gateway status
+
+# Health check
 openclaw doctor
 
 # Check version
@@ -88,6 +100,9 @@ openclaw --version
 
 # View logs
 journalctl -u openclaw -f
+
+# Open dashboard (optional)
+openclaw dashboard
 ```
 
 ## Step 9: Send Test Message
@@ -143,10 +158,10 @@ Config lives at `~/.openclaw/`:
 
 When executing these steps:
 1. Create Hetzner server (or use user's existing VPS)
-2. SSH in and install Node.js 22+
-3. Run `npm install -g openclaw@latest`
+2. SSH in and run `apt update && apt upgrade -y`
+3. Run `curl -fsSL https://openclaw.ai/install.sh | bash` (official method)
 4. Run `openclaw onboard --install-daemon`
 5. Guide user through the wizard prompts
 6. Help them get API keys if needed
 7. Wait for WhatsApp QR scan
-8. Run `openclaw doctor` to verify
+8. Run `openclaw gateway status` and `openclaw doctor` to verify
