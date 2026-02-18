@@ -8,7 +8,8 @@ Set up your own personal AI assistant in 10 minutes. Guided by AI, minimal effor
 
 - A personal AI assistant running 24/7
 - Message it on WhatsApp, Telegram, Discord, Slack, Signal, iMessage, etc.
-- It reads your emails, manages your calendar, remembers your projects
+- It remembers context across conversations
+- Extensible with plugins (email, calendar, etc.)
 - Costs ~€5/month (Hetzner server)
 
 ## Prerequisites
@@ -35,7 +36,7 @@ Read github.com/federicodeponte/openclaw-setup/SETUP.md and set up OpenClaw for 
 
 ### Option B: Manual Server + Guided Install
 
-1. Create a server manually at console.hetzner.cloud (Ubuntu 24.04, CX22)
+1. Create a server manually at console.hetzner.cloud (Ubuntu 24.04, CPX22)
 2. Open Claude Code and say:
 
 ```
@@ -58,16 +59,16 @@ Read github.com/federicodeponte/openclaw-setup/SETUP.md and help me install Open
 
 1. Creates a Hetzner server (~€5/month)
 2. Installs OpenClaw via official script
-3. Runs onboarding wizard: `openclaw onboard --install-daemon`
-4. Configures your LLM provider
-5. Sets up WhatsApp (you scan QR code)
-6. Starts the daemon for 24/7 operation
+3. Runs non-interactive onboard with your LLM API key
+4. Installs daemon for 24/7 operation
+5. You scan WhatsApp QR code
+6. Done - message your assistant anytime
 
 ## Stack
 
 | Component | What | Cost |
 |-----------|------|------|
-| Server | Hetzner CX22 | ~€5/mo |
+| Server | Hetzner CPX22 | ~€5/mo |
 | LLM | Anthropic or Gemini | Varies (free tier available) |
 | Channels | WhatsApp, Telegram, Discord, etc. | Free |
 | Agent | OpenClaw | Free (MIT license) |
