@@ -7,12 +7,88 @@ Claude Code or Codex can read and execute these steps automatically.
 
 ---
 
-## Step 1: Create Hetzner Server
+## Prerequisites (User Must Do First)
+
+Before Claude can automate the setup, you need:
+
+1. **Hetzner API Token**
+   - Go to https://console.hetzner.cloud
+   - Create a project (or use existing)
+   - Go to Security > API Tokens > Generate API Token
+   - Copy the token (you'll paste it when prompted)
+
+2. **SSH Key** (if you don't have one)
+   ```bash
+   ssh-keygen -t ed25519 -C "openclaw"
+   # Press Enter to accept defaults
+   cat ~/.ssh/id_ed25519.pub
+   # Copy this public key
+   ```
+
+---
+
+## Fully Automated Setup (Recommended)
+
+Claude Code can create the server and install everything. Just provide your Hetzner API token when asked.
+
+### Step 1: Install hcloud CLI (on your local machine)
+
+```bash
+# macOS
+brew install hcloud
+
+# Linux
+curl -sSLO https://github.com/hetznercloud/cli/releases/latest/download/hcloud-linux-amd64.tar.gz
+sudo tar -C /usr/local/bin --no-same-owner -xzf hcloud-linux-amd64.tar.gz
+rm hcloud-linux-amd64.tar.gz
+
+# Verify
+hcloud version
+```
+
+### Step 2: Authenticate hcloud
+
+```bash
+hcloud context create openclaw
+# Paste your Hetzner API token when prompted
+```
+
+### Step 3: Upload SSH Key to Hetzner
+
+```bash
+hcloud ssh-key create --name openclaw-key --public-key-from-file ~/.ssh/id_ed25519.pub
+```
+
+### Step 4: Create Server (One Command)
+
+```bash
+hcloud server create \
+  --name openclaw \
+  --type cx22 \
+  --image ubuntu-24.04 \
+  --location nbg1 \
+  --ssh-key openclaw-key
+```
+
+This outputs the server IP. Save it.
+
+### Step 5: Wait for Server + SSH In
+
+```bash
+# Wait 30 seconds for server to boot, then:
+ssh root@<SERVER_IP>
+```
+
+---
+
+## Manual Server Creation (Alternative)
+
+If you prefer the web console:
 
 1. Go to https://console.hetzner.cloud
 2. Create new project "openclaw"
 3. Add server:
-   - Location: Nuremberg (or closest)
+   - Location: Nuremberg (nbg1)
    - Image: Ubuntu 24.04
    - Type: CX22 (2 vCPU, 4GB RAM) - ~€5/month
    - SSH key: Add your public key
@@ -157,11 +233,25 @@ Config lives at `~/.openclaw/`:
 ## Notes for Claude Code
 
 When executing these steps:
-1. Create Hetzner server (or use user's existing VPS)
-2. SSH in and run `apt update && apt upgrade -y`
-3. Run `curl -fsSL https://openclaw.ai/install.sh | bash` (official method)
-4. Run `openclaw onboard --install-daemon`
-5. Guide user through the wizard prompts
-6. Help them get API keys if needed
-7. Wait for WhatsApp QR scan
-8. Run `openclaw gateway status` and `openclaw doctor` to verify
+
+### If user has hcloud CLI set up:
+1. Run `hcloud server create --name openclaw --type cx22 --image ubuntu-24.04 --location nbg1 --ssh-key openclaw-key`
+2. Wait 30s, then SSH into the new server
+3. Run `apt update && apt upgrade -y`
+4. Run `curl -fsSL https://openclaw.ai/install.sh | bash`
+5. Run `openclaw onboard --install-daemon`
+6. Guide user through wizard prompts (they need to interact)
+7. Help them get API keys if needed (Gemini: https://aistudio.google.com/apikey)
+8. Wait for WhatsApp QR scan (user must do this)
+9. Run `openclaw gateway status` and `openclaw doctor` to verify
+
+### If user doesn't have hcloud:
+1. Ask them to create server manually via console.hetzner.cloud
+2. Get the server IP from them
+3. Continue from step 2 above
+
+### Interactive steps (cannot be automated):
+- Hetzner API token input
+- `openclaw onboard` wizard prompts
+- WhatsApp QR code scanning
+- LLM API key entry

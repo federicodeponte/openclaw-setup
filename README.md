@@ -1,6 +1,6 @@
 # 🦞 OpenClaw Setup
 
-Set up your own personal AI assistant in 10 minutes. No coding required.
+Set up your own personal AI assistant in 10 minutes. Guided by AI, minimal effort.
 
 **Official OpenClaw docs:** https://docs.openclaw.ai
 
@@ -14,31 +14,52 @@ Set up your own personal AI assistant in 10 minutes. No coding required.
 ## Prerequisites
 
 1. **Claude Code** or **Codex** installed
-2. A Hetzner Cloud account (or any VPS)
-3. An LLM provider (Anthropic recommended, or Gemini free tier)
+2. A Hetzner Cloud account → [Sign up](https://hetzner.cloud)
+3. An LLM provider (Gemini free tier works, or Anthropic for best quality)
 
 ## Quick Start
 
-1. Open Claude Code or Codex
-2. Say:
+### Option A: Full Automation (Recommended)
+
+1. Get your Hetzner API token from console.hetzner.cloud > Security > API Tokens
+2. Open Claude Code or Codex
+3. Say:
 
 ```
-Read github.com/federicodeponte/openclaw-setup/SETUP.md and set up OpenClaw for me on a new Hetzner server
+Read github.com/federicodeponte/openclaw-setup/SETUP.md and set up OpenClaw for me. Here's my Hetzner API token: <paste token>
 ```
 
-3. Follow the wizard prompts
-4. Scan the WhatsApp QR code when prompted
-5. Done!
+4. Claude creates the server, installs everything, guides you through config
+5. Scan WhatsApp QR code when prompted
+6. Done!
+
+### Option B: Manual Server + Guided Install
+
+1. Create a server manually at console.hetzner.cloud (Ubuntu 24.04, CX22)
+2. Open Claude Code and say:
+
+```
+Read github.com/federicodeponte/openclaw-setup/SETUP.md and help me install OpenClaw on my server at <IP>
+```
+
+## What Claude Does vs. What You Do
+
+| Claude Does | You Do |
+|-------------|--------|
+| Creates Hetzner server (with hcloud) | Provide API token |
+| SSHs in and installs OpenClaw | Have SSH key set up |
+| Runs all setup commands | Answer wizard prompts |
+| Guides you through config | Scan WhatsApp QR code |
+| Verifies everything works | Provide LLM API key |
 
 ## What Happens
 
 1. Creates a Hetzner server (~€5/month)
-2. Installs Node.js 22+
-3. Installs OpenClaw via npm
-4. Runs onboarding wizard: `openclaw onboard --install-daemon`
-5. Configures your LLM provider
-6. Sets up WhatsApp (you scan QR code)
-7. Starts the daemon for 24/7 operation
+2. Installs OpenClaw via official script
+3. Runs onboarding wizard: `openclaw onboard --install-daemon`
+4. Configures your LLM provider
+5. Sets up WhatsApp (you scan QR code)
+6. Starts the daemon for 24/7 operation
 
 ## Stack
 
