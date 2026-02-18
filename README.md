@@ -18,38 +18,49 @@ Set up your own personal AI assistant in 10 minutes. No coding required.
 ## Quick Start
 
 1. Open Claude Code or Codex
-2. Say: "Read the SETUP.md file in this repo and set up OpenClaw for me on a new Hetzner server"
+2. Say:
+
+```
+Read github.com/federicodeponte/openclaw-setup/SETUP.md and set up OpenClaw for me on a new Hetzner server
+```
+
 3. Follow the prompts (it will ask for your API keys)
-4. Done. Message your AI on WhatsApp.
+4. Scan the WhatsApp QR code when prompted
+5. Done. Message your AI on WhatsApp.
 
 ## What Claude Code Will Do For You
 
 1. Create a Hetzner server (~€5/month)
-2. SSH into it and install dependencies
-3. Clone and configure OpenClaw
-4. Set up WhatsApp connection (you'll scan a QR code)
-5. Connect your Gmail (optional)
-6. Start the agent
-
-## Manual Setup
-
-If you prefer to do it yourself, see [SETUP.md](SETUP.md) for step-by-step instructions.
+2. SSH into it and install Node.js
+3. Install OpenClaw via npm (`npm install -g openclaw`)
+4. Run the setup wizard
+5. Configure Gemini API (free tier)
+6. Set up WhatsApp connection (you scan QR code)
+7. Create systemd service for 24/7 operation
 
 ## Stack
 
 | Component | What | Cost |
 |-----------|------|------|
 | Server | Hetzner CX22 | ~€5/mo |
-| LLM | Gemini 3 Flash | Free tier |
+| LLM | Gemini (via OpenClaw) | Free tier |
 | Interface | WhatsApp | Free |
-| Memory | GitHub repo | Free |
+| Agent | OpenClaw | Free (npm) |
+
+## Manual Setup
+
+If you prefer to do it yourself, see [SETUP.md](SETUP.md) for step-by-step instructions.
 
 ## Links
 
-- [OpenClaw](https://github.com/openclaw/openclaw) - The agent framework
+- [OpenClaw](https://openclaw.dev) - The agent framework
 - [Claude Code](https://claude.ai/code) - AI coding assistant
-- [Hetzner Cloud](https://hetzner.cloud) - Cheap VPS hosting
+- [Hetzner Cloud](https://hetzner.cloud) - VPS hosting
 
 ## Questions?
 
 Open an issue or DM me on [LinkedIn](https://linkedin.com/in/federicodeponte).
+
+---
+
+🦞 *Built with OpenClaw*
