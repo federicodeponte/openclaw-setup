@@ -46,11 +46,13 @@ Read github.com/federicodeponte/openclaw-setup/SETUP.md and help me install Open
 
 | Claude Does | You Do |
 |-------------|--------|
-| Creates Hetzner server (with hcloud) | Provide API token |
-| SSHs in and installs OpenClaw | Have SSH key set up |
-| Runs all setup commands | Answer wizard prompts |
-| Guides you through config | Scan WhatsApp QR code |
-| Verifies everything works | Provide LLM API key |
+| Creates Hetzner server | Provide Hetzner API token |
+| SSHs in and installs OpenClaw | Provide LLM API key (Gemini/Anthropic) |
+| Runs non-interactive onboard | Scan WhatsApp QR code |
+| Configures everything | That's it |
+| Verifies setup works | |
+
+**Only manual step:** Scanning the WhatsApp QR code with your phone.
 
 ## What Happens
 

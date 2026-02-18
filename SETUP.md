@@ -131,38 +131,49 @@ openclaw --version
 # Should show: 🦞 OpenClaw 2026.x.x
 ```
 
-## Step 5: Run Onboarding Wizard (from official docs)
+## Step 5: Run Onboarding (Non-Interactive)
 
+**With Gemini (free):**
 ```bash
-openclaw onboard --install-daemon
+openclaw onboard \
+  --non-interactive \
+  --accept-risk \
+  --install-daemon \
+  --auth-choice gemini-api-key \
+  --gemini-api-key <YOUR_GEMINI_API_KEY>
 ```
 
-The wizard will:
-1. Set up the Gateway daemon (systemd service)
-2. Ask you to configure your LLM provider
-3. Set up channels (WhatsApp, Telegram, etc.)
-4. Guide you through authentication
+**With Anthropic (best quality):**
+```bash
+openclaw onboard \
+  --non-interactive \
+  --accept-risk \
+  --install-daemon \
+  --auth-choice anthropic-api-key \
+  --anthropic-api-key <YOUR_ANTHROPIC_API_KEY>
+```
 
-## Step 6: Configure LLM Provider
+Get your API key:
+- **Gemini (free):** https://aistudio.google.com/apikey
+- **Anthropic:** https://console.anthropic.com/settings/keys
 
-**Recommended:** Anthropic Pro/Max subscription (best quality)
+## Step 6: Connect WhatsApp (Only Manual Step)
 
-**Free option:** Google Gemini API
-1. Go to https://aistudio.google.com/apikey
-2. Create API key
-3. Enter when prompted by wizard
+```bash
+# Add WhatsApp channel
+openclaw channels add --channel whatsapp
 
-## Step 7: Connect WhatsApp
+# Link your phone (shows QR code)
+openclaw channels login --channel whatsapp
+```
 
-During the wizard, when you enable WhatsApp:
-
-1. A QR code will appear in the terminal
+1. QR code appears in terminal
 2. Open WhatsApp on your phone
 3. Go to Settings > Linked Devices > Link a Device
 4. Scan the QR code
 5. Done!
 
-## Step 8: Verify Setup
+## Step 7: Verify Setup
 
 ```bash
 # Gateway status (from official docs)
@@ -181,7 +192,7 @@ journalctl -u openclaw -f
 openclaw dashboard
 ```
 
-## Step 9: Send Test Message
+## Step 8: Send Test Message
 
 ```bash
 # Via CLI
@@ -232,26 +243,41 @@ Config lives at `~/.openclaw/`:
 
 ## Notes for Claude Code
 
-When executing these steps:
+**Full automation is possible.** Ask user for:
+1. Hetzner API token
+2. LLM API key (Gemini or Anthropic)
 
-### If user has hcloud CLI set up:
-1. Run `hcloud server create --name openclaw --type cx22 --image ubuntu-24.04 --location nbg1 --ssh-key openclaw-key`
-2. Wait 30s, then SSH into the new server
-3. Run `apt update && apt upgrade -y`
-4. Run `curl -fsSL https://openclaw.ai/install.sh | bash`
-5. Run `openclaw onboard --install-daemon`
-6. Guide user through wizard prompts (they need to interact)
-7. Help them get API keys if needed (Gemini: https://aistudio.google.com/apikey)
-8. Wait for WhatsApp QR scan (user must do this)
-9. Run `openclaw gateway status` and `openclaw doctor` to verify
+### Automated Setup Flow:
+
+```bash
+# 1. Create server (if user has hcloud configured)
+hcloud server create --name openclaw --type cx22 --image ubuntu-24.04 --location nbg1 --ssh-key openclaw-key
+
+# 2. Wait for boot, then SSH in
+sleep 30
+ssh root@<SERVER_IP>
+
+# 3. Install OpenClaw
+apt update && apt upgrade -y
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# 4. Run non-interactive onboard (with Gemini)
+openclaw onboard \
+  --non-interactive \
+  --accept-risk \
+  --install-daemon \
+  --auth-choice gemini-api-key \
+  --gemini-api-key <USER_GEMINI_KEY>
+
+# 5. Verify
+openclaw gateway status
+openclaw doctor
+```
+
+### Only manual step:
+- **WhatsApp QR scan** - Run `openclaw channels` to set up WhatsApp after onboarding. User must scan QR code with their phone.
 
 ### If user doesn't have hcloud:
 1. Ask them to create server manually via console.hetzner.cloud
 2. Get the server IP from them
 3. Continue from step 2 above
-
-### Interactive steps (cannot be automated):
-- Hetzner API token input
-- `openclaw onboard` wizard prompts
-- WhatsApp QR code scanning
-- LLM API key entry
