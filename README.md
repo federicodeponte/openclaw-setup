@@ -37,7 +37,7 @@ After following this guide, you'll have:
 
 ### Prerequisites
 
-1. **[Claude Code](https://claude.ai/code)** or **[Codex](https://openai.com/codex)** installed
+1. **[Claude Code](https://github.com/anthropics/claude-code)** or **[Codex](https://openai.com/codex)** installed
 2. **[Hetzner Cloud account](https://hetzner.cloud)** (or any VPS)
 3. **LLM API key**: [Gemini (free)](https://aistudio.google.com/apikey) or [Anthropic](https://console.anthropic.com)
 
