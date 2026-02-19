@@ -19,7 +19,7 @@ OpenClaw is an open-source AI assistant that runs on your own server. Unlike Cha
 - **Runs 24/7** on a cheap VPS (~€5/month)
 - **Connects to your apps** via WhatsApp, Telegram, Discord, Slack, Signal, iMessage
 - **Remembers context** across conversations
-- **Extensible** with 50+ skills (GitHub, Google Workspace, Home Assistant, etc.)
+- **Extensible** with 49 skills (GitHub, Google Workspace, Home Assistant, etc.)
 
 ## What You Get
 
@@ -48,7 +48,7 @@ After following this guide, you'll have:
 3. Open Claude Code or Codex and say:
 
 ```
-Read github.com/federicodeponte/openclaw-setup/SETUP.md and set up OpenClaw for me.
+Read https://raw.githubusercontent.com/federicodeponte/openclaw-setup/master/SETUP.md and set up OpenClaw for me.
 Here's my Hetzner API token: <paste>
 Here's my Gemini API key: <paste>
 ```
@@ -76,20 +76,19 @@ Here's my Gemini API key: <paste>
 | WhatsApp, Telegram, etc. | €0 |
 | **Total** | **~€5/month** |
 
-## Available Skills (50+)
+## Available Skills
 
-Out of the box, OpenClaw can use skills like:
+**Ready immediately (no extra setup):**
+- **GitHub** — issues, PRs, repos (requires `gh` CLI auth)
+- **Coding agents** — Claude Code, Codex, OpenCode
 
-- **GitHub** — manage issues, PRs, repos
-- **Coding agents** — run Claude Code, Codex, OpenCode
-- **Notes** — Apple Notes, Bear, Obsidian
+**Requires CLI installation:**
+- **Notes** — Apple Notes, Bear, Obsidian (need respective CLIs)
 - **Home automation** — Home Assistant, Eight Sleep
-- **And more** — see `openclaw skills list`
+- **Google Workspace** — Gmail, Calendar, Drive (via `gog` CLI)
+- **1Password** — secrets management (via `op` CLI)
 
-**Optional (requires extra setup):**
-- Google Workspace (Gmail, Calendar, Drive) via `gog` CLI
-- 1Password integration
-- Custom skills from ClawHub
+Run `openclaw skills list` to see all 49 available skills and their status.
 
 ## Manual Setup
 
