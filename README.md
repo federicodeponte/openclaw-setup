@@ -124,6 +124,10 @@ See the [Troubleshooting section in SETUP.md](SETUP.md#troubleshooting) or join 
 
 Issues and PRs welcome. See [SETUP.md](SETUP.md) for the full setup flow.
 
+## See Also
+
+**[claude-setup](https://github.com/buildingopen/claude-setup)** — The full Claude Code developer setup that powers this workflow. Includes CLAUDE.md templates, 30+ skills, safety hooks, server infrastructure, terminal workflow, and more.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
